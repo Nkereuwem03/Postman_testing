@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "28999001-00bbed5e-c985-41c8-9611-1b0f67ad3549",
+		"name": "BooksAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40db58a6-d0d8-4216-bcc7-d471daf5152d",
+						"exec": [
+							"const random = Math.random().toString(5).substring(2);\r",
+							"const clientName = random;\r",
+							"const clientEmail = `${random}@example.com`;\r",
+							"\r",
+							"let requestBody = {\r",
+							"    clientName,\r",
+							"    clientEmail\r",
+							"};\r",
+							"\r",
+							"pm.request.body.mode = 'raw';\r",
+							"pm.request.body.raw = JSON.stringify(requestBody);\r",
+							"pm.environment.set(\"clientName\", clientName);\r",
+							"pm.environment.set(\"clientEmail\", clientEmail);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb5cfa08-b51b-42d4-a0c3-42137705ae3b",
+						"exec": [
+							"let accessToken = pm.response.json().accessToken;\r",
+							"\r",
+							"pm.environment.set(\"accessToken\", accessToken);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response body contains accessToken\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"accessToken\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "28999001-346ffaec-c617-4543-83d9-f91946274f7e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api-clients",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Books",
+			"id": "28999001-b3bada4b-9890-4dc2-b1c2-6729bd1371b8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/books",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit an Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bcddae8e-fa9e-43cc-a6c7-ae0a9f1369d6",
+						"exec": [
+							"let customerName = pm.environment.get(\"clientName\");\r",
+							"\r",
+							"let requestBody = {\r",
+							"  bookId: 1,\r",
+							"  customerName\r",
+							"};\r",
+							"\r",
+							"pm.request.body.raw = JSON.stringify(requestBody);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd283f86-3045-4db7-a6da-1dff6d304d6e",
+						"exec": [
+							"let resData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"orderId\", resData.orderId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "28999001-02e74ba0-9e6a-446f-b672-93d756be5275",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Orders",
+			"id": "28999001-4a72358c-fa12-441e-ae50-93a517717a85",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Order",
+			"id": "28999001-8e3fcc55-5cf4-48f5-a5bd-a94332df707f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/orders/{{orderId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c9d55a1d-5e9b-4bfd-afa1-f2a4b3d8e655",
+						"exec": [
+							"const customerName = Math.random().toString(5).substring(2)\r",
+							"\r",
+							"let requestBody = {\r",
+							"    customerName\r",
+							"}\r",
+							"\r",
+							"pm.request.body.raw = JSON.stringify(requestBody);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "28999001-8d06187b-744f-4272-a005-a1371a1d48d1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/orders/{{orderId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63863058-9ce4-49b1-81b2-8632c0293bb5",
+						"exec": [
+							"pm.environment.unset('accessToken')\r",
+							"pm.environment.unset('clientEmail')\r",
+							"pm.environment.unset('clientName')\r",
+							"pm.environment.unset('orderId')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "28999001-fcc9c41b-c9f1-45d5-9a8f-6a9d0b91a6b0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/orders/{{orderId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9190b178-b499-4077-a352-c07135c81bf8",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fb62b07e-37c5-47de-a37a-8f54f1a74e4f",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
