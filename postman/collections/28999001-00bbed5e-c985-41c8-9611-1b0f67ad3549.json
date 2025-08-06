@@ -126,7 +126,7 @@
 							"let customerName = pm.environment.get(\"clientName\");\r",
 							"\r",
 							"let requestBody = {\r",
-							"  bookId: 6,\r",
+							"  bookId: 1,\r",
 							"  customerName\r",
 							"};\r",
 							"\r",
