@@ -328,11 +328,11 @@
 					"script": {
 						"id": "c9d55a1d-5e9b-4bfd-afa1-f2a4b3d8e655",
 						"exec": [
-							"const customerName = Math.random().toString(5).substring(2)\r",
+							"const customerName = Math.random().toString(5).substring(2);\r",
 							"\r",
 							"let requestBody = {\r",
 							"    customerName\r",
-							"}\r",
+							"};\r",
 							"\r",
 							"pm.request.body.raw = JSON.stringify(requestBody);"
 						],
