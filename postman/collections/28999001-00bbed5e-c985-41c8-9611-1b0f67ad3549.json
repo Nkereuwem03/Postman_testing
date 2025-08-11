@@ -400,10 +400,18 @@
 					"script": {
 						"id": "63863058-9ce4-49b1-81b2-8632c0293bb5",
 						"exec": [
-							"pm.environment.unset('accessToken')\r",
-							"pm.environment.unset('clientEmail')\r",
-							"pm.environment.unset('clientName')\r",
-							"pm.environment.unset('orderId')"
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.environment.unset('accessToken');\r",
+							"pm.environment.unset('clientEmail');\r",
+							"pm.environment.unset('clientName');\r",
+							"pm.environment.unset('orderId');"
 						],
 						"type": "text/javascript",
 						"packages": {}
