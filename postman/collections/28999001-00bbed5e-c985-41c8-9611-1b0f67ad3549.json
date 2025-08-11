@@ -42,15 +42,15 @@
 							"\r",
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
-							"})\r",
+							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 1000ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
-							"})\r",
+							"});\r",
 							"\r",
 							"pm.test(\"Response body contains accessToken\", function () {\r",
 							"    pm.expect(pm.response.json()).to.have.property(\"accessToken\");\r",
-							"})"
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -69,9 +69,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/api-clients",
+					"raw": "{{baseUrl}}/api-clients",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"api-clients"
@@ -82,6 +82,25 @@
 		},
 		{
 			"name": "List of Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e82ae6c4-758c-47d9-8297-6da6ae1cd1c4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "28999001-b3bada4b-9890-4dc2-b1c2-6729bd1371b8",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -104,9 +123,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/books",
+					"raw": "{{baseUrl}}/books",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"books"
