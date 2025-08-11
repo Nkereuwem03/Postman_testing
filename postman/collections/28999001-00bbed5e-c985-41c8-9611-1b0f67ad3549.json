@@ -400,8 +400,8 @@
 					"script": {
 						"id": "63863058-9ce4-49b1-81b2-8632c0293bb5",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 1000ms\", function () {\r",
