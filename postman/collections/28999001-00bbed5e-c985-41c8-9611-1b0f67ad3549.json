@@ -213,6 +213,25 @@
 		},
 		{
 			"name": "Get all Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "71ccad90-bcaf-47d8-84fb-73a4c35e0697",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "28999001-4a72358c-fa12-441e-ae50-93a517717a85",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
