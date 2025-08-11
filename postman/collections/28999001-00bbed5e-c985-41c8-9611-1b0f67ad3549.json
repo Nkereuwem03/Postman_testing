@@ -163,7 +163,15 @@
 						"exec": [
 							"let resData = pm.response.json();\r",
 							"\r",
-							"pm.environment.set(\"orderId\", resData.orderId);"
+							"pm.environment.set(\"orderId\", resData.orderId);\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -192,9 +200,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/orders",
+					"raw": "{{baseUrl}}/orders",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"orders"
