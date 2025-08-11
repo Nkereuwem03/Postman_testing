@@ -339,6 +339,23 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8758c01c-bd42-4680-b60d-b5a12203fba8",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"id": "28999001-8d06187b-744f-4272-a005-a1371a1d48d1",
@@ -363,9 +380,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/orders/{{orderId}}",
+					"raw": "{{baseUrl}}/orders/{{orderId}}",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"orders",
