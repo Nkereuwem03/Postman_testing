@@ -432,9 +432,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/orders/{{orderId}}",
+					"raw": "{{baseUrl}}/orders/{{orderId}}",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"orders",
