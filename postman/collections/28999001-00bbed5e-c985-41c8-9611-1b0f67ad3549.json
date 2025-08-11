@@ -267,6 +267,25 @@
 		},
 		{
 			"name": "Get an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "945b4caa-2e32-413c-8707-3d904eab076e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "28999001-8e3fcc55-5cf4-48f5-a5bd-a94332df707f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -289,9 +308,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base_url}}/orders/{{orderId}}",
+					"raw": "{{baseUrl}}/orders/{{orderId}}",
 					"host": [
-						"{{base_url}}"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"orders",
